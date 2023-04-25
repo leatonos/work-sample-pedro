@@ -55,7 +55,7 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
   return(
 
     <Layout title="Risk Thinking AI - Work Sample">
-      <h1>Risk Thinking AI - Work Sample</h1>
+      <h1>Risk Thinking AI - Work Sample v1</h1>
       <section className={styles.mapSection}>
         <div className={styles.mapContainer}>
           <MapboxMap assets={data}/>
