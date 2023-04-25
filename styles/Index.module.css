@@ -1,0 +1,26 @@
+.mapSection{
+    display: flex;
+    flex-direction: row;
+}
+
+.mapControlContainer{
+    width: 30%;
+    height: 450px;
+}
+
+.mapContainer{
+    width: 70%;
+    height: 450px;
+}
+
+.tableSection{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tableContainer{
+   height: 450px;
+   overflow-y: auto;
+}

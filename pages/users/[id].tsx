@@ -10,6 +10,7 @@ type Props = {
   errors?: string
 }
 
+
 const StaticPropsDetail = ({ item, errors }: Props) => {
   if (errors) {
     return (

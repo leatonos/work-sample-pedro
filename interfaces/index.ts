@@ -8,3 +8,13 @@ export type User = {
   id: number
   name: string
 }
+
+export type Asset = {
+  assetName: string,
+  lat:number,
+  long:number,
+  businessCategory:string,
+  riskRating:number,
+  riskFactors:any,
+  year:number
+}
