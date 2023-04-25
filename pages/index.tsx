@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps<{ data: Asset[] }> = async (
 
   //makes sure it will find the correct URL for the API request
   const dev = process.env.NODE_ENV !== 'production';
-  const serverURL = dev ? 'http://localhost:3000' : 'https://your_deployment.server.com';
+  const serverURL = dev ? 'http://localhost:3000' : 'https://work-sample-pedro.vercel.app/';
 
   const res = await fetch(`${serverURL}/api/assets`)
   const data: Asset[] = await res.json()
