@@ -6,9 +6,9 @@ const handler = async(_req: NextApiRequest, res: NextApiResponse) => {
   const csv = require('fast-csv');
   const data = []
 
-  await fs.createReadStream('./sample_data.csv')
+  await fs.createReadStream('./utils/sample_data.csv')
     .pipe(csv.parse({ headers: true }))
-    .on('error', (error: any) => console.error(error))
+    .on('error', (error: any) => res.status(500).json(error))
     .on('data', (row: any) => data.push(row))
     .on('end', () => res.status(200).json(data));
 }
