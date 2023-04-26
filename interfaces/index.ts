@@ -18,3 +18,8 @@ export type Asset = {
   riskFactors:any,
   year:number
 }
+
+export type MarkerPoint = {
+  assets:Asset[],
+  coords:[number,number]
+}

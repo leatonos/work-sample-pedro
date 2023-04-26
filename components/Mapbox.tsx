@@ -1,14 +1,15 @@
 import * as React from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css"; 
-import { Asset } from "../interfaces";
+import { Asset, MarkerPoint } from "../interfaces";
+import { type } from "os";
 // import the mapbox-gl styles so that the map is displayed correctly
 
 type mapProps = {
-  assets: Asset[] 
+  points: MarkerPoint[]
 }
 
-function MapboxMap({assets}: mapProps) {
+function MapboxMap({points}: mapProps) {
     // this is where the map instance will be stored after initialization
   const [map, setMap] = React.useState<mapboxgl.Map>();
 
@@ -17,13 +18,12 @@ function MapboxMap({assets}: mapProps) {
   // will contain `null` by default
     const mapNode = React.useRef(null);
 
+
   React.useEffect(() => {
     const node = mapNode.current;
-    //console.log('inside the map:')
-    //console.log(assets)
-        // if the window object is not found, that means
-        // the component is rendered on the server
-        // or the dom node is not initialized, then return early
+      // if the window object is not found, that means
+      // the component is rendered on the server
+      // or the dom node is not initialized, then return early
     if (typeof window === "undefined" || node === null) return;
 
     // otherwise, create a map instance
@@ -36,27 +36,15 @@ function MapboxMap({assets}: mapProps) {
     });
 
     //Here is where we insert the markers
-    
-    let location: [number,number]
 
-    const locationList: typeof location[] = []
-
-    for(let asset of assets){
-
-      locationList.push([asset.long,asset.lat])
-
+    console.log(points)
+    for(const markerPoint of points){
+      new mapboxgl.Marker()
+      .setLngLat(markerPoint.coords)
+      .addTo(mapboxMap);
     }
-
-    //console.log(locationList)
-
-      /*
-        new mapboxgl.Marker()
-          .setLngLat([asset.long, asset.lat])
-          .addTo(mapboxMap);
-      */
     
     
-
     // save the map object to React.useState
     setMap(mapboxMap);
 
