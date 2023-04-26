@@ -47,7 +47,7 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
     const decadesOptions = decadesMixed.map((decade) => ({value: decade, label: decade}))
     setDecades(decadesOptions);
     
-  },[selectedDecadesAssets])
+  },[])
 
   const updatePoints=(assets: Asset[])=>{
     let markerPoints: MarkerPoint[]=[]
@@ -98,7 +98,7 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
     const dataCopy = [...data]
     const filteredResult = dataCopy.filter((asset)=>{return numArr.includes(asset.year)})
     setfilteredData(filteredResult)
-    console.log(filteredData)
+    updatePoints(filteredResult)
 
   }
   
@@ -112,18 +112,23 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
         </div>
         <div className={styles.mapControlContainer}>
           <h2>Map control</h2>
+          
+          <div>
           <h3>Decade</h3>
-          <Select
-            instanceId={'decadeSelector'}
-            options={decades}
-            isMulti
-            defaultValue={decades[0]}
-            isClearable
-            isSearchable
-            onChange={handleChangeDecade}
-            name="decade"
-          />
-          <p>{selectedDecadesAssets}</p>
+            <Select
+              instanceId={'decadeSelector'}
+              options={decades}
+              isMulti
+              defaultValue={decades[0]}
+              isClearable
+              isSearchable
+              onChange={handleChangeDecade}
+              name="decade"
+            />
+          </div>
+          <div>
+
+          </div>  
         </div>
       </section>
 

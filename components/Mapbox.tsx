@@ -51,7 +51,7 @@ function MapboxMap({points}: mapProps) {
         return () => {
       mapboxMap.remove();
     };
-  }, []);
+  }, [points]);
 
     return <div ref={mapNode} style={{ width: "100%", height: "100%" }} />;
 }
