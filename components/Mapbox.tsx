@@ -19,7 +19,7 @@ function MapboxMap({assets}: mapProps) {
 
   React.useEffect(() => {
     const node = mapNode.current;
-    console.log('inside the map:')
+    //console.log('inside the map:')
     //console.log(assets)
         // if the window object is not found, that means
         // the component is rendered on the server
@@ -47,13 +47,13 @@ function MapboxMap({assets}: mapProps) {
 
     }
 
-    console.log(locationList)
+    //console.log(locationList)
 
-        /*
-          new mapboxgl.Marker()
-            .setLngLat([asset.long, asset.lat])
-            .addTo(mapboxMap);
-        */
+      /*
+        new mapboxgl.Marker()
+          .setLngLat([asset.long, asset.lat])
+          .addTo(mapboxMap);
+      */
     
     
 

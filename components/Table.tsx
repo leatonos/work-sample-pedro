@@ -5,18 +5,16 @@ type tableProps = {
     assets: Asset[] 
   }
 
-const Table = ({assets}: tableProps) => (
-    <table>
-    <tr>
-      <th>Asset Name</th>
-      <th>Lat</th>
-      <th>Long</th>
-      <th>Business Category</th>
-      <th>Risk Rating</th>
-      <th>Risk Factors</th>
-      <th>Year</th>
-    </tr>
-    {assets.map((asset)=>{
+const Table = ({assets}: tableProps) => {
+
+    
+    React.useEffect(()=>{
+        if (typeof window === "undefined") return;
+    })
+
+    /*
+    
+        {assets.map((asset,index)=>{
       const riskFactors = JSON.parse(asset.riskFactors)
 
       let riskFactorsArr: string[] = []
@@ -32,15 +30,35 @@ const Table = ({assets}: tableProps) => (
           <td>{asset.long}</td>
           <td>{asset.businessCategory}</td>
           <td>{asset.riskRating}</td>
-          <td>{riskFactorsArr.map((factor)=>
-            <p>{factor}</p>
-          )}</td>
+          <td></td>
           <td>{asset.year}</td>
         </tr>
       )
     }
-    )}
-  </table>
+    )
+    
+    }
+    
+    */
+
+    return(
+        <div>
+
+    <table>
+        <thead>
+            <th>Asset Name</th>
+            <th>Lat</th>
+            <th>Long</th>
+            <th>Business Category</th>
+            <th>Risk Rating</th>
+            <th>Risk Factors</th>
+            <th>Year</th>
+        </thead>
+        
+    </table>
+        </div>
 )
+
+}
 
 export default Table

@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps<{ data: Asset[] }> = async (
 
   //makes sure it will find the correct URL for the API request
   const dev = process.env.NODE_ENV !== 'production';
-  const serverURL = dev ? 'http://localhost:3000' : 'https://work-sample-pedro.vercel.app/';
+  const serverURL = dev ? 'http://localhost:3000' : 'https://your_deployment.server.com';
 
   const res = await fetch(`${serverURL}/api/assets`)
   const data: Asset[] = await res.json()
@@ -29,6 +29,7 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
 
   const [decades,setDecades] = useState([])
   const [selectedDecadesAssets, setAssetsDecades] = useState<number[]>([])
+  const [filteredData,setfilteredData] = useState<Asset[]>([])
 
   useEffect(()=>{
     
@@ -37,32 +38,37 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
     const decadesOptions = decadesMixed.map((decade) => ({value: decade, label: decade}))
     setDecades(decadesOptions);
 
+    //set Initial data that will be filtered soon
+    setfilteredData(data)
+
     console.log(JSON.parse(data[0].riskFactors))
     
   },[])
 
   const handleChange = (selected:{value:number,label:number}[]) => {
-
     let numArr:number[] = []
-    
+
     for(let val of selected){
       numArr.push(val.value)
-    }
-
+    
+  }
     setAssetsDecades(numArr)
+    //filter by decade
+    console.log(numArr)
   }
   
   return(
 
     <Layout title="Risk Thinking AI - Work Sample">
-      <h1>Risk Thinking AI - Work Sample v1</h1>
+      <h1>Risk Thinking AI - Work Sample</h1>
       <section className={styles.mapSection}>
         <div className={styles.mapContainer}>
-          <MapboxMap assets={data}/>
+          <MapboxMap assets={filteredData}/>
         </div>
         <div className={styles.mapControlContainer}>
           <h2>Map control</h2>
-          <Select 
+          <Select
+            instanceId={'decadeSelector'}
             options={decades}
             isMulti
             defaultValue={decades[0]}
@@ -77,7 +83,48 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
 
       <section className={styles.tableSection}>
         <div className={styles.tableContainer}>
-        <Table assets={data}/>
+          <table>
+            <thead>
+            <tr>
+              <th>Asset Name</th>
+              <th>Lat</th>
+              <th>Long</th>
+              <th>Business Category</th>
+              <th>Risk Rating</th>
+              <th>Risk Factors</th>
+              <th>Year</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {filteredData.map((asset,index)=>{
+              const riskFactors = JSON.parse(asset.riskFactors)
+
+              let riskFactorsArr: string[] = []
+
+              for(const property in riskFactors){
+                riskFactorsArr.push(`${property} ${riskFactors[property]} `)
+              }
+             
+              return(
+                <tr key={index}>
+                  <td>{asset.assetName}</td>
+                  <td>{asset.lat}</td>
+                  <td>{asset.long}</td>
+                  <td>{asset.businessCategory}</td>
+                  <td>{asset.riskRating}</td>
+                  <td>{riskFactorsArr.map((factor,index)=>
+                    <p key={index}>{factor}</p>
+                  )}</td>
+                  <td>{asset.year}</td>
+                </tr>
+              )
+            }
+            )}
+
+            </tbody>
+           
+          </table>
         </div>
       </section>
       
