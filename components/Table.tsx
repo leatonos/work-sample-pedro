@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Asset } from "../interfaces";
 import styles from "../styles/Index.module.css"
+import Select, { InputActionMeta } from 'react-select'
+import DecadeSelector from './DecadeSelector';
 
 type tableProps = {
     assets: Asset[],
@@ -12,7 +14,7 @@ type rowProps = {
 }
 
 const Table = ({assets,maxRows}: tableProps) => {
-
+    const [decades,setDecades] = React.useState([])
     const [tablePage,setTablePage] = React.useState<number>(3)
     const [tableSlice,setTableSlice] = React.useState<Asset[]>([])
     
@@ -28,21 +30,28 @@ const Table = ({assets,maxRows}: tableProps) => {
 
     },[assets])
 
+
+    
+
     return(
       <section className={styles.tableSection} id='table'>
+      <div className={styles.tableFilters}>
+        <h2>Filters</h2>
+        <DecadeSelector/>
+      </div>
       <div className={styles.tableContainer}>
         <table className={styles.tableFixHead}>
-        <thead>
-          <tr>
-            <th>Asset Name</th>
-            <th>Lat</th>
-            <th>Long</th>
-            <th>Business Category</th>
-            <th>Risk Rating</th>
-            <th>Risk Factors</th>
-            <th>Year</th>
-          </tr>
-          </thead>
+          <thead>
+              <tr>
+                <th>Asset Name</th>
+                <th>Lat</th>
+                <th>Long</th>
+                <th>Business Category</th>
+                <th>Risk Rating</th>
+                <th>Risk Factors</th>
+                <th>Year</th>
+              </tr>
+            </thead>
           <tbody>
           
             {tableSlice.map((asset,index)=>{
@@ -69,14 +78,11 @@ const Table = ({assets,maxRows}: tableProps) => {
             )
           }
           )}
-          
-     
-         
-         
-
           </tbody>
-         
         </table>
+      </div>
+      <div className={styles.tablePagination}>
+        <p>1</p>
       </div>
     </section>
 )

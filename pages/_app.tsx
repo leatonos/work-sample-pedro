@@ -1,7 +1,7 @@
 import '../styles/global.css'
 
 import React from 'react';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import {store} from '../redux/store'
 
 // This default export is required in a new `pages/_app.js` file.

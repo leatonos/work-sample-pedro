@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
-import Table from '../components/Table';
 import styles from "../styles/Index.module.css"
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import dynamic from 'next/dynamic'
@@ -8,8 +7,14 @@ import { Asset, MarkerPoint } from '../interfaces';
 import { useEffect, useState } from 'react';
 import Select, { InputActionMeta } from 'react-select'
 
-//Prevents server side rendering in the map component
+//Redux Imports
+import type { RootState } from '../redux/store';
+import { useSelector, useDispatch } from 'react-redux'
+import { updateFilteredAssets, setMarkers,setInitialData } from '../redux/assetsSlice';
+
+//Prevents server side rendering for some components
 const MapboxMap = dynamic(() => import('../components/Mapbox'),{ ssr: false })
+const Table = dynamic(()=>import('../components/Table'),{ssr:false})
 
 export const getServerSideProps: GetServerSideProps<{ data: Asset[] }> = async (context) => {
 
@@ -27,12 +32,11 @@ export const getServerSideProps: GetServerSideProps<{ data: Asset[] }> = async (
   }
 }
 
-
 const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) =>{
 
   const [decades,setDecades] = useState([])
-  const [selectedDecadesAssets, setAssetsDecades] = useState<number[]>([])
-  const [filteredData,setfilteredData] = useState<Asset[]>([])
+  const dispatch = useDispatch()
+  const filteredData = useSelector((state: RootState) => state.assets.assets)
   const [mapPoints,setMapPoints] = useState<MarkerPoint[]>([])
 
   useEffect(()=>{
@@ -40,7 +44,8 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
      //set initial markers
      updatePoints(data)
      //set Initial data that will be filtered soon
-     setfilteredData(data)
+     dispatch(updateFilteredAssets(data))
+     dispatch(setInitialData(data))
     
     //Here we are getting all the decades available in the database and inserting into the select element
     const decadesMixed = [...new Map(data.map((a) => [a.year, a.year])).values()].sort();
@@ -87,19 +92,19 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
     for(let val of selected){
       numArr.push(val.value)
     }
-    setAssetsDecades(numArr)
     
     //If no decade selected just show all the data again
     if (numArr.length == 0){
-      setfilteredData(data)
+      dispatch(updateFilteredAssets(data))
       return
     }
     
     //filter by decade using the decades you choose
     const dataCopy = [...data]
     const filteredResult = dataCopy.filter((asset)=>{return numArr.includes(asset.year)})
-    setfilteredData(filteredResult)
+    dispatch(updateFilteredAssets(filteredResult))
     updatePoints(filteredResult)
+    console.log(numArr.length)
 
   }
   
