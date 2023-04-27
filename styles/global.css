@@ -1,3 +1,47 @@
-body {
- 
-  }
+header{
+  display: flex;
+  position: fixed;
+  z-index: 999;
+  height: 80px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  flex-direction: row;
+  align-items: center;
+}
+
+.page-title-container{
+  width: 60%;
+}
+
+h1{
+  font-size: 28px;
+}
+
+nav{
+  width: 40%;
+}
+
+ul{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+li{
+  display: block;
+  font-size: 20px;
+}
+
+table {
+  border-collapse: collapse; /* make the table borders collapse to each other */
+  width: 100%;
+}
+th,
+td {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+}
+th {
+  background: #eee;
+}

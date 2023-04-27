@@ -106,14 +106,15 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
   return(
 
     <Layout title="Risk Thinking AI - Work Sample">
-      <h1>Risk Thinking AI - Work Sample</h1>
-      <section className={styles.mapSection}>
+      
+      <section className={styles.mapSection} id='map'>
+        
         <div className={styles.mapContainer}>
+        
           <MapboxMap points={mapPoints}/>
         </div>
         <div className={styles.mapControlContainer}>
           <h2>Map control</h2>
-          
           <div>
           <h3>Decade</h3>
             <Select
@@ -133,7 +134,7 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
         </div>
       </section>
       
-      <Table assets={filteredData} maxRows={10}/>
+      <Table assets={filteredData} maxRows={100}/>
       
     </Layout>
   )

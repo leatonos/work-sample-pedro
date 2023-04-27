@@ -1,6 +1,6 @@
 https://dev.to/dqunbp/using-mapbox-gl-in-react-with-next-js-2glg
 
-
+https://redux-toolkit.js.org/tutorials/typescript
 https://nextjs.org/docs/basic-features/typescript
 
 

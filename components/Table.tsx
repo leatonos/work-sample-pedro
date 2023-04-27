@@ -29,10 +29,10 @@ const Table = ({assets,maxRows}: tableProps) => {
     },[assets])
 
     return(
-      <section className={styles.tableSection}>
+      <section className={styles.tableSection} id='table'>
       <div className={styles.tableContainer}>
-        <table>
-          <thead>
+        <table className={styles.tableFixHead}>
+        <thead>
           <tr>
             <th>Asset Name</th>
             <th>Lat</th>
