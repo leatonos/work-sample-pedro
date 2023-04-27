@@ -13,7 +13,7 @@ type allData = {
   }
    
 
-const DecadeSelector = ({data}: allData) => {
+const DecadeSelector = () => {
     const initialAssets: Asset[] = useSelector((state:RootState)=> state.assets.initialAssets)
     const assets:Asset[] = useSelector((state: RootState) => state.assets.assets)
     const [decades,setDecades] = React.useState([])
