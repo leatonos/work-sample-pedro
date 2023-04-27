@@ -47,6 +47,7 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
     const decadesOptions = decadesMixed.map((decade) => ({value: decade, label: decade}))
     setDecades(decadesOptions);
     
+    
   },[])
 
   const updatePoints=(assets: Asset[])=>{
@@ -131,54 +132,8 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
           </div>  
         </div>
       </section>
-
-      <section className={styles.tableSection}>
-        <div className={styles.tableContainer}>
-          <table>
-            <thead>
-            <tr>
-              <th>Asset Name</th>
-              <th>Lat</th>
-              <th>Long</th>
-              <th>Business Category</th>
-              <th>Risk Rating</th>
-              <th>Risk Factors</th>
-              <th>Year</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            {filteredData.map((asset,index)=>{
-              const riskFactors = JSON.parse(asset.riskFactors)
-
-              let riskFactorsArr: string[] = []
-
-              for(const property in riskFactors){
-                riskFactorsArr.push(`${property} ${riskFactors[property]} `)
-              }
-             
-              return(
-                <tr key={index}>
-                  <td>{asset.assetName}</td>
-                  <td>{asset.lat}</td>
-                  <td>{asset.long}</td>
-                  <td>{asset.businessCategory}</td>
-                  <td>{asset.riskRating}</td>
-                  <td>{riskFactorsArr.map((factor,index)=>
-                    <p key={index}>{factor}</p>
-                  )}</td>
-                  <td>{asset.year}</td>
-                </tr>
-              )
-            }
-            )}
-
-            </tbody>
-           
-          </table>
-        </div>
-      </section>
       
+      <Table assets={filteredData} maxRows={10}/>
       
     </Layout>
   )
