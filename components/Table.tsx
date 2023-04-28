@@ -3,6 +3,8 @@ import { Asset } from "../interfaces";
 import styles from "../styles/Index.module.css"
 import Select, { InputActionMeta } from 'react-select'
 import DecadeSelector from './DecadeSelector';
+import Image from 'next/image';
+import arrowImg from '../public/img/arrow.svg'
 
 type tableProps = {
     assets: Asset[],
@@ -15,7 +17,7 @@ type rowProps = {
 
 const Table = ({assets,maxRows}: tableProps) => {
     const [decades,setDecades] = React.useState([])
-    const [tablePage,setTablePage] = React.useState<number>(3)
+    const [tablePage,setTablePage] = React.useState<number>(1)
     const [tableSlice,setTableSlice] = React.useState<Asset[]>([])
     
     React.useEffect(()=>{
@@ -26,12 +28,27 @@ const Table = ({assets,maxRows}: tableProps) => {
         const finalRow:number = maxRows*tablePage-1
         const rows:Asset[] = assets.slice(startingRow,finalRow)
         setTableSlice(rows)
+    },[assets, tablePage])
 
 
-    },[assets])
+    function previousPage(){
 
+      console.log(tablePage)
 
-    
+      if(tablePage==1){
+        return
+      }else{
+        let pageNum = tablePage
+        setTablePage(tablePage - 1)
+      }
+    }
+
+    function nextPage(){
+      console.log(tablePage)
+        
+        setTablePage(tablePage + 1)
+      
+    }
 
     return(
       <section className={styles.tableSection} id='table'>
@@ -82,7 +99,9 @@ const Table = ({assets,maxRows}: tableProps) => {
         </table>
       </div>
       <div className={styles.tablePagination}>
-        <p>1</p>
+        <Image onClick={previousPage} className={styles.arrowLeft} src={arrowImg} alt='Left arrow'/>
+        <p>{tablePage}</p>
+        <Image onClick={nextPage} className={styles.arrowRight} src={arrowImg} alt='Left right'/>
       </div>
     </section>
 )

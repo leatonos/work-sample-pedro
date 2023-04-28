@@ -12,7 +12,6 @@ type allData = {
     data: Asset[]
   }
    
-
 const DecadeSelector = () => {
     const initialAssets: Asset[] = useSelector((state:RootState)=> state.assets.initialAssets)
     const assets:Asset[] = useSelector((state: RootState) => state.assets.assets)

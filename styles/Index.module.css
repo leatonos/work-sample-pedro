@@ -35,3 +35,20 @@
     position: sticky; /* make the table heads sticky */
     top: 0px; /* table head will be placed from the top of the table and sticks to it */
   }
+
+  .tablePagination{
+    display: flex;
+    align-items: center;
+  }
+
+  .arrowLeft{
+    margin: 5px;
+    width: 15px;
+    height: 15px;
+  }
+  .arrowRight{
+    margin: 5px;
+    width: 15px;
+    height: 15px;
+    transform: scaleX(-1);
+  }
