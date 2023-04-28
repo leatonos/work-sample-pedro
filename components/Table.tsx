@@ -3,6 +3,7 @@ import { Asset } from "../interfaces";
 import styles from "../styles/Index.module.css"
 import Select, { InputActionMeta } from 'react-select'
 import DecadeSelector from './DecadeSelector';
+import RiskSelector from './RiskSelector';
 import Image from 'next/image';
 import arrowImg from '../public/img/arrow.svg'
 
@@ -55,6 +56,7 @@ const Table = ({assets,maxRows}: tableProps) => {
       <div className={styles.tableFilters}>
         <h2>Filters</h2>
         <DecadeSelector/>
+        <RiskSelector/>
       </div>
       <div className={styles.tableContainer}>
         <table className={styles.tableFixHead}>
@@ -101,7 +103,7 @@ const Table = ({assets,maxRows}: tableProps) => {
       <div className={styles.tablePagination}>
         <Image onClick={previousPage} className={styles.arrowLeft} src={arrowImg} alt='Left arrow'/>
         <p>{tablePage}</p>
-        <Image onClick={nextPage} className={styles.arrowRight} src={arrowImg} alt='Left right'/>
+        <Image onClick={nextPage} className={styles.arrowRight} src={arrowImg} alt='Right arrow'/>
       </div>
     </section>
 )
