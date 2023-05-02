@@ -1,16 +1,13 @@
 import * as React from 'react'
-import { Asset } from "../interfaces";
-import styles from "../styles/Index.module.css"
+import { Asset } from "../../interfaces";
+import styles from "../../styles/Index.module.css"
 import Select, { InputActionMeta } from 'react-select'
 
 //Redux Imports
-import type { RootState } from '../redux/store';
+import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux'
-import { updateFilteredAssets, setMarkers } from '../redux/assetsSlice';
+import { setRiskFactorFilter } from '../../redux/filtersSlice';
 
-type allData = {
-    data: Asset[]
-  }
    
 const RiskSelector = () => {
     const initialAssets: Asset[] = useSelector((state:RootState)=> state.assets.initialAssets)
@@ -29,34 +26,21 @@ const RiskSelector = () => {
             }
         }
         setRisks(listOfRisks.map((risk)=>{return {value: risk, label: risk}}))
-
     },[])
 
 
-    const handleChangeDecade = (selected:{value:number,label:number}[]) => {
+    const handleChangeRiskFactor = (selected:{value:string,label:string}[]) => {
     
-      //assemble all the decades selected
-      let numArr:number[] = []
+      //assemble all the risks selected
+      let riskArr:string[] = []
       for(let val of selected){
-        numArr.push(val.value)
+        riskArr.push(val.value)
       }
-      
-      //If no decade selected just show all the data again
-      if (numArr.length == 0){
-        dispatch(updateFilteredAssets(initialAssets))
-        return
-      }
-      
-      //filter by decade using the decades you choose
-      const dataCopy = [...initialAssets]
-      const filteredResult = dataCopy.filter((asset)=>{return numArr.includes(asset.year)})
-      dispatch(updateFilteredAssets(filteredResult))
-      console.log(numArr.length)
-  
+      dispatch(setRiskFactorFilter(riskArr))
     }
 
     return(
-        <div>
+        <div className={styles.tableFilter}>
             <h3>Risk Factor</h3>
             <Select
                 instanceId={'riskSelector'}
@@ -64,7 +48,7 @@ const RiskSelector = () => {
                 isMulti
                 isClearable
                 isSearchable
-                //onChange={handleChangeDecade}
+                onChange={handleChangeRiskFactor}
                 name="decade"
             />
         </div>

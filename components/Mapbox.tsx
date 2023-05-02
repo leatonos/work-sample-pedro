@@ -36,10 +36,20 @@ function MapboxMap({points}: mapProps) {
     });
 
     //Here is where we insert the markers
-
     console.log(points)
     for(const markerPoint of points){
-      new mapboxgl.Marker()
+      //const avg = markerPoint
+      const el = document.createElement('div');
+      el.className = 'marker'
+      el.innerHTML = markerPoint.assets.length.toString()
+      
+      el.addEventListener('click',()=>{
+        console.log(markerPoint)
+      })
+
+      new mapboxgl.Marker({
+        element: el
+      })
       .setLngLat(markerPoint.coords)
       .addTo(mapboxMap);
     }
@@ -47,7 +57,6 @@ function MapboxMap({points}: mapProps) {
     
     // save the map object to React.useState
     setMap(mapboxMap);
-
         return () => {
       mapboxMap.remove();
     };

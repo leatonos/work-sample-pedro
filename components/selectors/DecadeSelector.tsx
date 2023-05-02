@@ -1,61 +1,74 @@
 import * as React from 'react'
-import { Asset } from "../interfaces";
-import styles from "../styles/Index.module.css"
+import { Asset } from "../../interfaces";
+import styles from "../../styles/Index.module.css"
 import Select, { InputActionMeta } from 'react-select'
 
 //Redux Imports
-import type { RootState } from '../redux/store';
+import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux'
-import { updateFilteredAssets, setMarkers } from '../redux/assetsSlice';
+import { setDecadeFilter } from '../../redux/filtersSlice';
 
-type allData = {
-    data: Asset[]
+type selectorProps = {
+    propId: string
   }
    
-const DecadeSelector = () => {
+const DecadeSelector = ({propId}: selectorProps) => {
     const initialAssets: Asset[] = useSelector((state:RootState)=> state.assets.initialAssets)
+    const selectedVal = useSelector((state:RootState)=> state.filters.decadesFilter)
     const assets:Asset[] = useSelector((state: RootState) => state.assets.assets)
     const [decades,setDecades] = React.useState([])
+    const [generalValue, setSelectedVal] = React.useState(null)
     const dispatch = useDispatch()
     
+    //Gets all the different decades in the database and create a list of options
     React.useEffect(()=>{
         const decadesMixed = [...new Map(assets.map((a) => [a.year, a.year])).values()].sort();
         const decadesOptions = decadesMixed.map((decade) => ({value: decade, label: decade}))
         console.log(decadesOptions)
-        setDecades(decadesOptions);
+        setDecades(decadesOptions); 
+       
     },[])
+
+
+     //
+     React.useEffect(()=>{
+
+      const newVal = selectedVal.map((val)=>{
+        return {value:val,label:val}
+      })
+
+      console.log("I should be working")
+      setSelectedVal(newVal)
+     
+    },[selectedVal])
+
 
 
     const handleChangeDecade = (selected:{value:number,label:number}[]) => {
     
       //assemble all the decades selected
-      let numArr:number[] = []
+      let decadeArr:number[] = []
       for(let val of selected){
-        numArr.push(val.value)
+        decadeArr.push(val.value)
       }
-      
-      //If no decade selected just show all the data again
-      if (numArr.length == 0){
-        dispatch(updateFilteredAssets(initialAssets))
-        return
-      }
-      
-      //filter by decade using the decades you choose
-      const dataCopy = [...initialAssets]
-      const filteredResult = dataCopy.filter((asset)=>{return numArr.includes(asset.year)})
-      dispatch(updateFilteredAssets(filteredResult))
-      console.log(numArr.length)
+
   
+
+      //Send Selected Decades for the Redux Store
+      dispatch(setDecadeFilter(decadeArr))
     }
 
+    
+
     return(
-        <div>
+        <div className={styles.tableFilter}>
             <h3>Decade</h3>
             <Select
-                instanceId={'decadeSelector'}
+                instanceId={propId}
+                id={propId}
                 options={decades}
+                value={generalValue}
                 isMulti
-                defaultValue={decades[0]}
                 isClearable
                 isSearchable
                 onChange={handleChangeDecade}

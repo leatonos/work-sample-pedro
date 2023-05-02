@@ -4,3 +4,4 @@ https://redux-toolkit.js.org/tutorials/typescript
 https://nextjs.org/docs/basic-features/typescript
 
 
+https://docs.mapbox.com/mapbox-gl-js/example/cluster/

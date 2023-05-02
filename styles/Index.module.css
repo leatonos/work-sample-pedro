@@ -1,21 +1,37 @@
 .mapSection{
     display: flex;
     width: 100%;
-    height: calc(100vh - 100px);
-    margin-top: 80px;
-    padding: 10px 0px;
+    height: calc(100vh - 80px);
+    padding-top: 80px;
     flex-direction: row;
     align-items: center;
 }
 
 .mapControlContainer{
-    width: 30%;
-    height: 450px;
+    width: 40%;
+    height: 500px;
 }
 
 .mapContainer{
-    width: 70%;
-    height: 450px;
+    width: 60%;
+    height: 500px;
+}
+
+.tableFilters{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.tableFilter{
+    width: 30%;
+    margin: 10px 20px;
+}
+.riskSelector{
+  display: flex;
+  flex-direction: row;
+}
+.comparatorSelector{
+  width: 50%;
 }
 
 .tableSection{
