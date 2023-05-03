@@ -43,6 +43,8 @@ const Table = ({assets,maxRows}: tableProps) => {
     const riskRatingNumber = useSelector((state: RootState) => state.filters.riskRatingNumber)
     const riskRatingComparator = useSelector((state: RootState) => state.filters.riskRatingComparator)
 
+    const currentData = useSelector((state: RootState) => state.assets.assets)
+
 
     //This makes sure we are updating the table everytime a filter changes
     React.useEffect(()=>{
@@ -113,8 +115,10 @@ const Table = ({assets,maxRows}: tableProps) => {
       }
     }
     function nextPage(){
-      console.log(tablePage)   
+      const lastPageNumber = Math.ceil(currentData.length/maxRows)
+      if(tablePage < lastPageNumber){
         setTablePage(tablePage + 1) 
+      }
     }
     return(
       <section className={styles.tableSection} id='table'>
