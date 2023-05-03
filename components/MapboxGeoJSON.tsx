@@ -62,6 +62,12 @@ function MapboxMap({points}: mapProps) {
     const mapNode = React.useRef(null);
 
 
+  function categoryColors(category){
+    switch (category){
+      case ''
+    }
+  }
+
   React.useEffect(() => {
     const node = mapNode.current;
       // if the window object is not found, that means
