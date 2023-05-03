@@ -65,7 +65,6 @@ const Graph = () => {
     const riskFactorFilters = useSelector((state: RootState) => state.filters.riskFactorFilter)
     const categoryFilter = useSelector((state: RootState) => state.filters.categoryFilter)
 
-//255, 89, 100
     //Returns all the decades available in the database
     const decades = [...new Map(initialData.map((a) => [a.year, a.year])).values()].sort();
 
@@ -199,7 +198,7 @@ const Graph = () => {
       },
       scales: {
         y: {
-          beginAtZero: true
+          //beginAtZero: true
         }
       }
     };

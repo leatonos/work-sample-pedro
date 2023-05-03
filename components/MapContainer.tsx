@@ -15,7 +15,8 @@ import { useSelector, useDispatch } from 'react-redux'
 //Types
 import { MarkerPoint } from '../interfaces';
 
-const MapboxMap = dynamic(() => import('../components/Mapbox'),{ ssr: false })
+//Mapbox component Import
+const MapboxMap = dynamic(() => import('../components/MapboxGeoJSON'),{ ssr: false })
 
 
 const MapContainer = () => {
