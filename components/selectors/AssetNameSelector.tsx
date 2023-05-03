@@ -9,18 +9,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setAssetFilter } from '../../redux/filtersSlice';
    
 const AssetNameSelector = () => {
+    const selectedVal = useSelector((state:RootState)=> state.filters.assetNameFilter)
+    const [generalValue, setSelectedVal] = React.useState(null)
     const assets:Asset[] = useSelector((state: RootState) => state.assets.assets)
-    const [assetsNames,setAssetsNames] = React.useState([])
+    const initialAssets:Asset[] = useSelector((state: RootState) => state.assets.initialAssets)
     const dispatch = useDispatch()
     
     //Gets all the different Assets names in the database and create a list of options
-    React.useEffect(()=>{
-        const assetsNamesMixed = [...new Map(assets.map((a) => [a.assetName, a.assetName])).values()].sort();
-        const assetsOptions = assetsNamesMixed.map((assetName) => ({value: assetName, label: assetName}))
-        console.log(assetsOptions)
-        setAssetsNames(assetsOptions);
-    },[])
+    const assetsNamesMixed = [...new Map(initialAssets.map((a) => [a.assetName, a.assetName])).values()].sort();
+    const assetsOptions = assetsNamesMixed.map((assetName) => ({value: assetName, label: assetName}))
 
+    //If there are multiple Selectors of the same kind this sincronize all of them,
+    //It means if you change one, it changes all of them
+     React.useEffect(()=>{
+        const newVal = selectedVal.map((val)=>{
+          return {value:val,label:val}
+        })
+        setSelectedVal(newVal)    
+      },[selectedVal])
 
     const handleChangeAssetName = (selected:{value:string,label:string}[]) => {
     
@@ -37,9 +43,9 @@ const AssetNameSelector = () => {
         <div className={styles.tableFilter}>
             <h3>Asset Name</h3>
             <Select
-                
                 instanceId={'assetSelector'}
-                options={assetsNames}
+                options={assetsOptions}
+                value={generalValue}
                 isMulti
                 isClearable
                 isSearchable

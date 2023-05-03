@@ -9,18 +9,27 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setCategoryFilter } from '../../redux/filtersSlice';
    
 const BusinessCategorySelector = () => {
+    const selectedVal = useSelector((state:RootState)=> state.filters.categoryFilter)
+    const [generalValue, setSelectedVal] = React.useState(null)
     const assets:Asset[] = useSelector((state: RootState) => state.assets.assets)
-    const [businessCategories,setBusinessCategories] = React.useState([])
+    const initialAssets:Asset[] = useSelector((state: RootState) => state.assets.initialAssets)
+   
     const dispatch = useDispatch()
+    const assetsbussiness = [...new Map(initialAssets.map((a) => [a.businessCategory, a.businessCategory])).values()].sort();
+    const bussinessOptions = assetsbussiness.map((assetName) => ({value: assetName, label: assetName}))
     
-    //Gets all the different Business Categories in the database and create a list of options with 
-    React.useEffect(()=>{
-        const assetsbussiness = [...new Map(assets.map((a) => [a.businessCategory, a.businessCategory])).values()].sort();
-        const bussinessOptions = assetsbussiness.map((assetName) => ({value: assetName, label: assetName}))
-        console.log(bussinessOptions)
-        setBusinessCategories(bussinessOptions);
-    },[])
+    
 
+
+     //If there are multiple Selectors of the same kind this sincronize all of them,
+     //It means if you change one, it changes all of them
+     React.useEffect(()=>{
+
+        const newVal = selectedVal.map((val)=>{
+          return {value:val,label:val}
+        })
+        setSelectedVal(newVal)    
+      },[selectedVal])
 
     const handleChangeBusinessCategory = (selected:{value:string,label:string}[]) => {
     
@@ -38,7 +47,8 @@ const BusinessCategorySelector = () => {
             <h3>Business Category</h3>
             <Select
                 instanceId={'assetSelector'}
-                options={businessCategories}
+                options={bussinessOptions}
+                value={generalValue}
                 isMulti
                 isClearable
                 isSearchable

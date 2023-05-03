@@ -12,21 +12,21 @@ import { setRiskFactorFilter } from '../../redux/filtersSlice';
 const RiskSelector = () => {
     const initialAssets: Asset[] = useSelector((state:RootState)=> state.assets.initialAssets)
     const assets:Asset[] = useSelector((state: RootState) => state.assets.assets)
-    const [risks,setRisks] = React.useState([])
     const dispatch = useDispatch()
     
-    React.useEffect(()=>{
-        let listOfRisks = []
-        for(const asset of assets){
-            const assetRisks = JSON.parse(asset.riskFactors)
-            for(const risk in assetRisks){
-                if(!listOfRisks.includes(risk)){
-                    listOfRisks.push(risk)
-                }
+    //Creates a lisk with all different risks of the table
+    let listOfRisks = []
+    for(const asset of assets){
+        const assetRisks = JSON.parse(asset.riskFactors)
+        for(const risk in assetRisks){
+            if(!listOfRisks.includes(risk)){
+                listOfRisks.push(risk)
             }
         }
-        setRisks(listOfRisks.map((risk)=>{return {value: risk, label: risk}}))
-    },[])
+    }
+
+    const risks = (listOfRisks.map((risk)=>{return {value: risk, label: risk}}))
+   
 
 
     const handleChangeRiskFactor = (selected:{value:string,label:string}[]) => {

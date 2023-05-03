@@ -22,8 +22,8 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
         <ul>
           <li><a href='#map'>Map</a></li>
           <li><a href='#table'>Table</a></li>
-          <li><a href='#map'>Graph</a></li>
-          <li><a href='#map'>About</a></li>
+          <li><a href='#graph'>Graph</a></li>
+          <li><a href='#about'>About</a></li>
         </ul>
       </nav>
     </header>

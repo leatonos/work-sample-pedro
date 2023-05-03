@@ -15,6 +15,7 @@ import { updateFilteredAssets, setMarkers,setInitialData } from '../redux/assets
 //Prevents server side rendering for some components
 const MapContainer = dynamic(() => import('../components/MapContainer'),{ ssr: false })
 const Table = dynamic(()=>import('../components/Table'),{ssr:false})
+const Graph = dynamic(()=>import('../components/Graph'),{ssr:false})
 
 export const getServerSideProps: GetServerSideProps<{ data: Asset[] }> = async (context) => {
 
@@ -84,6 +85,7 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
       
       <MapContainer />
       <Table assets={filteredData} maxRows={100}/>
+      <Graph />
       
     </Layout>
   )

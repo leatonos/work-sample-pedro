@@ -5,6 +5,11 @@ import { Asset, MarkerPoint } from "../interfaces";
 import { type } from "os";
 // import the mapbox-gl styles so that the map is displayed correctly
 
+
+//Redux Imports
+import type { RootState } from '../redux/store';
+import { useSelector, useDispatch } from 'react-redux'
+
 type mapProps = {
   points: MarkerPoint[]
 }
@@ -12,6 +17,7 @@ type mapProps = {
 function MapboxMap({points}: mapProps) {
     // this is where the map instance will be stored after initialization
   const [map, setMap] = React.useState<mapboxgl.Map>();
+  const filteredData = useSelector((state: RootState) => state.assets.assets)
 
     // React ref to store a reference to the DOM node that will be used
   // as a required parameter `container` when initializing the mapbox-gl
@@ -36,7 +42,6 @@ function MapboxMap({points}: mapProps) {
     });
 
     //Here is where we insert the markers
-    console.log(points)
     for(const markerPoint of points){
       //const avg = markerPoint
       const el = document.createElement('div');

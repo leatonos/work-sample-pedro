@@ -1,3 +1,5 @@
+
+  /* Map Section */
 .mapSection{
     display: flex;
     width: 100%;
@@ -17,6 +19,8 @@
     height: 500px;
 }
 
+  /* Table Filters Section */
+
 .tableFilters{
     width: 80%;
     display: flex;
@@ -33,6 +37,8 @@
 .comparatorSelector{
   width: 50%;
 }
+
+  /* Table Section */
 
 .tableSection{
     display: flex;
@@ -67,4 +73,29 @@
     width: 15px;
     height: 15px;
     transform: scaleX(-1);
+  }
+
+
+  /* Graph Section */
+
+  .graphSection{
+    width: 100%;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+  }
+  .graphFiltersContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40%;
+  }
+
+  .graphContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60%;
   }

@@ -14,8 +14,6 @@ type allData = {
 type Option = {value:string,label:string}
    
 const RiskRatingSelector = () => {
-    const initialAssets: Asset[] = useSelector((state:RootState)=> state.assets.initialAssets)
-    const assets:Asset[] = useSelector((state: RootState) => state.assets.assets)
     const [riskRating,setRiskRating] = React.useState([])
     const dispatch = useDispatch()
 

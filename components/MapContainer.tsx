@@ -11,19 +11,13 @@ import dynamic from 'next/dynamic'
 //Redux Imports
 import type { RootState } from '../redux/store';
 import { useSelector, useDispatch } from 'react-redux'
-import { updateFilteredAssets } from '../redux/assetsSlice';
-import AssetNameSelector from './selectors/AssetNameSelector';
-import BusinessCategorySelector from './selectors/BussinessCategorySelector';
-import RiskRatingSelector from './selectors/RiskRatingSelector';
 
+//Types
 import { MarkerPoint } from '../interfaces';
 
 const MapboxMap = dynamic(() => import('../components/Mapbox'),{ ssr: false })
 
-type tableProps = {
-    assets: Asset[],
-    maxRows: number
-  }
+
 const MapContainer = () => {
 
     const [decades,setDecades] = useState([])
