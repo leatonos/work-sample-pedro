@@ -11,59 +11,25 @@ import dynamic from 'next/dynamic'
 //Redux Imports
 import type { RootState } from '../redux/store';
 import { useSelector, useDispatch } from 'react-redux'
+import { clearAllFilters } from '../redux/filtersSlice';
 
 //Types
 import { MarkerPoint } from '../interfaces';
 
 //Mapbox component Import
-const MapboxMap = dynamic(() => import('../components/MapboxGeoJSON'),{ ssr: false })
+const MapboxMap = dynamic(() => import('../components/Mapbox'),{ ssr: false })
 
 
 const MapContainer = () => {
 
-    const [decades,setDecades] = useState([])
     const dispatch = useDispatch()
     const filteredData = useSelector((state: RootState) => state.assets.assets)
-    const [mapPoints,setMapPoints] = useState<MarkerPoint[]>([])
-    
     const initialData = useSelector((state: RootState) => state.assets.initialAssets)
-    const assetNameFilters = useSelector((state: RootState) => state.filters.assetNameFilter)
+    const mapPoints = useSelector((state: RootState) => state.assets.markers)
 
-    React.useEffect(()=>{
-
-        updatePoints(filteredData)
-       
-    },[filteredData])
-
-    const updatePoints=(assets: Asset[])=>{
-        let markerPoints: MarkerPoint[]=[]
-        for(let asset of assets){
-    
-          const newLocation = [asset.long,asset.lat]
-          
-          let markerFound = false 
-    
-          //Checks if this point already exist in the map or not
-          for(const marker of markerPoints){
-            //if an asset already have a point in the map it adds this asset to this point
-            if(marker.coords[0] == newLocation[0] && marker.coords[1] == newLocation[1]){
-              marker.assets.push(asset)
-              markerFound=true;
-            }
-          }
-    
-          //If this point does not exist yet, it adds to the map
-          if(!markerFound){
-            const newMarkerPoint:MarkerPoint = {
-              assets: [asset],
-              coords: [asset.long,asset.lat]
-            }
-            markerPoints.push(newMarkerPoint)
-          }
-    
-      }
-      setMapPoints(markerPoints)
-      }
+    function clearSelection(){
+        dispatch(clearAllFilters('test'))
+    }
 
     return(
         <section className={styles.mapSection} id='map'>
@@ -72,48 +38,45 @@ const MapContainer = () => {
         </div>
         <div className={styles.mapControlContainer}>
           <h2>Map control</h2>
-          <DecadeSelector propId='mapDecadeSelector'/>
-          <div>
-          <div className={styles.tableContainer}>
-          <table className={styles.tableFixHead}>
-            <thead>
-              <tr>
-                  <th>Latitute</th>
-                  <th>Longitude</th>
-                  <th>Assets</th>
-                  <th>Avg. Risk Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-            {mapPoints.map((point,index)=>{
-
-             let totalRiskRating = 0
-
-             for(let asset of point.assets){
-                totalRiskRating += Number(asset.riskRating)
-             }
-             const totalOfAssets = point.assets.length
-             const avgRiskRating = (totalRiskRating/totalOfAssets).toFixed(3)
-              
-              return(
-                <tr key={index}>
-                  <td>{point.coords[1]}</td>
-                  <td>{point.coords[0]}</td>
-                  <td>{totalOfAssets}</td>
-                  <td>{avgRiskRating}</td>
-                </tr>
-              )
-            }
-            )}
-             
-            </tbody>
-          </table>
-        </div>
+          <div className={styles.mapFiltersContainer}>
+            <DecadeSelector propId='mapDecadeSelector'/>
+            <button onClick={clearSelection}>Clear Selection</button>
           </div>
-          <div>
-            
-          </div>  
+          <div className={styles.tableContainer}>
+            <table className={styles.tableFixHead}>
+              <thead>
+                <tr>
+                    <th>Latitute</th>
+                    <th>Longitude</th>
+                    <th>Assets</th>
+                    <th>Avg. Risk Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+              {mapPoints.map((point,index)=>{
+
+                let totalRiskRating = 0
+
+                for(let asset of point.assets){
+                  totalRiskRating += Number(asset.riskRating)
+                }
+                const totalOfAssets = point.assets.length
+                const avgRiskRating = (totalRiskRating/totalOfAssets).toFixed(3)
+                
+                return(
+                    <tr key={index}>
+                      <td>{point.coords[1]}</td>
+                      <td>{point.coords[0]}</td>
+                      <td>{totalOfAssets}</td>
+                      <td>{avgRiskRating}</td>
+                    </tr>
+                  )
+              })}
+              
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     )

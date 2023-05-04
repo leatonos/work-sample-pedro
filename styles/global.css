@@ -2,6 +2,42 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Fonts */
+@font-face {
+  font-family: LemonMilkBold;
+  src: url(./fonts/LEMONMILK-Bold.otf);
+}
+@font-face {
+  font-family: LemonMilkMedium;
+  src: url(./fonts/LEMONMILK-Medium.otf);
+}
+@font-face {
+  font-family: MontserratBold;
+  src: url(./fonts/Montserrat-Black.ttf);
+}
+@font-face {
+  font-family: MontserratRegular;
+  src: url(./fonts/Montserrat-Regular.ttf);
+}
+/* Button*/
+
+button {
+  font-family: MontserratBold;
+  border: none;
+  padding: 10px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+button:focus {
+  border: none;
+  outline: none;
+}
+
+div,input{
+  font-family: MontserratRegular;
+}
+
 header{
   display: flex;
   position: fixed;
@@ -11,6 +47,7 @@ header{
   left: 0;
   width: 100%;
   background-color: white;
+  padding: 0px 15px;
   flex-direction: row;
   align-items: center;
 }
@@ -19,12 +56,22 @@ header{
   width: 60%;
 }
 
+h1,h2,h3{
+  font-family: MontserratBold;
+  text-transform: uppercase;
+}
+
 h1{
   font-size: 28px;
+}
+p{
+  font-family: MontserratRegular;
+  color: black;
 }
 
 nav{
   width: 40%;
+  color: white;
 }
 
 ul{
@@ -35,27 +82,36 @@ ul{
 li{
   display: block;
   font-size: 20px;
+  color: white;
+}
+
+a{
+  text-decoration: none;
+  font-family: LemonMilkMedium;
 }
 
 table {
   border-collapse: collapse; /* make the table borders collapse to each other */
   width: 100%;
 }
-th,
-td {
+th,td {
   padding: 8px 16px;
   border: 1px solid #ccc;
 }
 th {
+  font-family: LemonMilkBold;
   background: #eee;
+}
+td{
+  font-family: MontserratRegular;
 }
 
 .marker{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: white;
   border-radius: 100%;
   

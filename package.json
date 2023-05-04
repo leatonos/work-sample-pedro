@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "@types/geojson": "^7946.0.10",
     "@types/mapbox-gl": "^2.7.10",
     "@types/react-redux": "^7.1.25",
     "chart.js": "^4.3.0",

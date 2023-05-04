@@ -41,43 +41,15 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
   const [mapPoints,setMapPoints] = useState<MarkerPoint[]>([])
 
   useEffect(()=>{
-
-     //set initial markers
-     updatePoints(data)
-     //set Initial data that will be filtered soon
+ 
+     //set Initial data that will be filtered by the user
+     dispatch(setMarkers(data))
      dispatch(updateFilteredAssets(data))
      dispatch(setInitialData(data))
         
   },[])
 
-  const updatePoints=(assets: Asset[])=>{
-    let markerPoints: MarkerPoint[]=[]
-    for(let asset of assets){
 
-      const newLocation = [asset.long,asset.lat]
-      
-      let markerFound = false 
-
-      //Checks if this point already exist in the map or not
-      for(const marker of markerPoints){
-        if(marker.coords[0] == newLocation[0] && marker.coords[1] == newLocation[1]){
-          marker.assets.push(asset)
-          markerFound=true;
-        }
-      }
-
-      //If this point does not exist yet, it adds to the map
-      if(!markerFound){
-        const newMarkerPoint:MarkerPoint = {
-          assets: [asset],
-          coords: [asset.long,asset.lat]
-        }
-        markerPoints.push(newMarkerPoint)
-      }
-
-  }
-  setMapPoints(markerPoints)
-  }
 
   return(
 
@@ -86,6 +58,16 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
       <MapContainer />
       <Table assets={filteredData} maxRows={100}/>
       <Graph />
+      <section className={styles.aboutSection} id='about'>
+        <h1>About</h1>
+        <p>This is a work sample, made for riskthinking.AI</p>
+        <p>
+          It was pretty fun to develop this, and I decided to make this
+          little text just to thank for the opportunity and just explain that the risk values that 
+          appears on the map and in the graph are just averages calculated based on the assets that were filtered.
+        </p>
+        <p>I really hope that I get a chance to know more about your company, an interview would be awesome</p>
+      </section>
       
     </Layout>
   )

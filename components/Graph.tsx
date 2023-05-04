@@ -71,10 +71,47 @@ const Graph = () => {
     //Returns all the Business Categories in the database
     const businessCategories = [...new Map(initialData.map((a) => [a.businessCategory, a.businessCategory])).values()].sort();
 
+    function categoryColors(category:string){
+      let colors =[]
+
+      switch (category){
+        case "Energy":
+          colors.push("rgb(255, 247, 76)")
+          colors.push("rgba(255, 247, 76, 0.5)")
+          break;
+        case "Finance":
+          colors.push("rgb(107, 241, 120)")
+          colors.push("rgba(107, 241, 120, 0.5)")
+          break;
+        case "Healthcare":
+          colors.push("rgb(255, 89, 100)")
+          colors.push("rgba(255, 89, 100, 0.5)")
+          break;
+        case "Manufacturing":
+          colors.push("rgb(99, 75, 102)")
+          colors.push("rgba(99, 75, 102, 0.5)")
+          break;
+        case "Retail":
+          colors.push("rgb(165, 145, 50)")
+          colors.push("rgba(165, 145, 50, 0.5)")
+          break;
+        case "Technology":
+          colors.push("rgb(53, 167, 255)")
+          colors.push("rgba(53, 167, 255, 0.5)")
+          break;
+        default:
+          colors.push('rgb(255, 99, 132)')
+          colors.push('rgba(255, 99, 132,0.5)')
+      }
+
+      return colors
+        
+    }
+
     //Updates the graph according to the filters selected
     React.useEffect(()=>{
       
-      let filteredResult:Asset[] = [...initialData]
+      let filteredResult:Asset[] = [...assets]
 
       //Starts getting the filtered result when the user selects an asset
       if(assetNameFilters.length != 0){
@@ -158,8 +195,8 @@ const Graph = () => {
         return {
           label: category,
           data: graphPointsReady,
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: categoryColors(category)[0],
+          backgroundColor: categoryColors(category)[0],
           parsing: {
             yAxisKey: 'riskRating',
             xAxisKey: 'year' 
@@ -169,7 +206,7 @@ const Graph = () => {
 
       setDatasets(finalResult)
        
-    },[assetNameFilters,categoryFilter])
+    },[assetNameFilters,categoryFilter,assets])
 
     const options = {
       updateMode:"resize",

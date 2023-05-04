@@ -10,7 +10,7 @@ import arrowImg from '../public/img/arrow.svg'
 //Redux Imports
 import type { RootState } from '../redux/store';
 import { useSelector, useDispatch } from 'react-redux'
-import { updateFilteredAssets } from '../redux/assetsSlice';
+import { setMarkers, updateFilteredAssets } from '../redux/assetsSlice';
 import AssetNameSelector from './selectors/AssetNameSelector';
 import BusinessCategorySelector from './selectors/BussinessCategorySelector';
 import RiskRatingSelector from './selectors/RiskRatingSelector';
@@ -97,6 +97,7 @@ const Table = ({assets,maxRows}: tableProps) => {
 
       //Send the final filtered data to the redux store
       dispatch(updateFilteredAssets(filteredResult))
+      dispatch(setMarkers(filteredResult))
 
       //After all the filters were applied we just need to go back to page 1 onf the table
       setTablePage(1)      

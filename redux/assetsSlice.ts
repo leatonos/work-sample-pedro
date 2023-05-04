@@ -29,8 +29,35 @@ export const assetsSlice = createSlice({
     setInitialData: (state, action: PayloadAction<Asset[]>) => {
       state.initialAssets = action.payload
     },
-    setMarkers: (state, action: PayloadAction<MarkerPoint[]>) => {
-      state.markers = action.payload
+    setMarkers: (state, action: PayloadAction<Asset[]>) => {
+     
+      const assets = action.payload
+      let markerPoints: MarkerPoint[]=[]
+      for(let asset of assets){
+  
+        const newLocation = [asset.long,asset.lat]
+        
+        let markerFound = false 
+  
+        //Checks if this point already exist in the map or not
+        for(const marker of markerPoints){
+          //if an asset already have a point in the map it adds this asset to that point
+          if(marker.coords[0] == newLocation[0] && marker.coords[1] == newLocation[1]){
+            marker.assets.push(asset)
+            markerFound=true;
+          }
+        }
+  
+        //If this point does not exist yet, it adds to the map
+        if(!markerFound){
+          const newMarkerPoint:MarkerPoint = {
+            assets: [asset],
+            coords: [asset.long,asset.lat]
+          }
+          markerPoints.push(newMarkerPoint)
+        }
+    }
+      state.markers = markerPoints
     },
     
   },

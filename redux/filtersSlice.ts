@@ -46,9 +46,19 @@ export const filtersSlice = createSlice({
     setRiskFactorFilter: (state, action: PayloadAction<string[]>) => {
       state.riskFactorFilter = action.payload
     },
+    clearAllFilters: (state,action: PayloadAction<string>) => {
+      console.log('something is wrong')
+      state.assetNameFilter = []
+      state.decadesFilter = []
+      state.categoryFilter = []
+      state.riskRatingNumber = 0
+      state.riskRatingComparator = ''
+      state.riskFactorFilter = []
+    },
   },
 })
 
-export const { setAssetFilter,setDecadeFilter,setCategoryFilter,setRatingNumber, setRatingComparator,setRiskFactorFilter } = filtersSlice.actions
+export const { setAssetFilter,setDecadeFilter,setCategoryFilter,
+  setRatingNumber, setRatingComparator,setRiskFactorFilter,clearAllFilters } = filtersSlice.actions
 
 export default filtersSlice.reducer
