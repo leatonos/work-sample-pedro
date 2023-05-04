@@ -20,7 +20,7 @@ function MapboxMap({points}: mapProps) {
     // this is where the map instance will be stored after initialization
   const [map, setMap] = React.useState<mapboxgl.Map>();
   const filteredData = useSelector((state: RootState) => state.assets.assets)
-  const [geoMapPoints,setGeoMapPoints] = React.useState<Features[]>()
+  const [geoMapPoints,setGeoMapPoints] = React.useState<Feature[]>()
 
   // React ref to store a reference to the DOM node that will be used
   // as a required parameter `container` when initializing the mapbox-gl
