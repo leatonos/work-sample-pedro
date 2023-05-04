@@ -60,13 +60,13 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
       <Graph />
       <section className={styles.aboutSection} id='about'>
         <h1>About</h1>
-        <p>This is a work sample, made for riskthinking.AI</p>
+        <p>This is a work sample made for riskthinking.AI.</p>
         <p>
-          It was pretty fun to develop this, and I decided to make this
-          little text just to thank for the opportunity and just explain that the risk values that 
-          appears on the map and in the graph are just averages calculated based on the assets that were filtered.
+          It was pretty fun to develop this, and I learned a lot in the process. I decided to make this
+          short text to thank you for the opportunity and explain that the risk values that 
+          appear on the map and in the graph are averages calculated based on the assets that were filtered.
         </p>
-        <p>I really hope that I get a chance to know more about your company, an interview would be awesome</p>
+        <p>I really hope to have the chance to learn more about your company and the role, and to meet the team.</p>
       </section>
       
     </Layout>
