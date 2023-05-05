@@ -2,18 +2,24 @@ import * as React from 'react'
 import { Asset } from "../interfaces";
 import styles from "../styles/Index.module.css"
 import Select, { InputActionMeta } from 'react-select'
-import DecadeSelector from './selectors/DecadeSelector';
-import RiskSelector from './selectors/RiskSelector';
+
+//Image Imports
 import Image from 'next/image';
 import arrowImg from '../public/img/arrow.svg'
+import sortImg from '../public/img/sort-by-attributes.png'
 
 //Redux Imports
 import type { RootState } from '../redux/store';
 import { useSelector, useDispatch } from 'react-redux'
 import { setMarkers, updateFilteredAssets } from '../redux/assetsSlice';
+
+//Selectors Imports
+import DecadeSelector from './selectors/DecadeSelector';
+import RiskSelector from './selectors/RiskSelector';
 import AssetNameSelector from './selectors/AssetNameSelector';
 import BusinessCategorySelector from './selectors/BussinessCategorySelector';
 import RiskRatingSelector from './selectors/RiskRatingSelector';
+
 
 type tableProps = {
     assets: Asset[],
@@ -36,6 +42,7 @@ const Table = ({assets,maxRows}: tableProps) => {
 
     //This is the data from the Redux Store
     const initialData = useSelector((state: RootState) => state.assets.initialAssets)
+    const assetsFiltered = useSelector((state: RootState) => state.assets.assets)
     const assetNameFilters = useSelector((state: RootState) => state.filters.assetNameFilter)
     const decadeFilters = useSelector((state: RootState) => state.filters.decadesFilter)
     const riskFactorFilters = useSelector((state: RootState) => state.filters.riskFactorFilter)
@@ -121,6 +128,107 @@ const Table = ({assets,maxRows}: tableProps) => {
         setTablePage(tablePage + 1) 
       }
     }
+
+
+    const AssetNameSorter = ()=>{
+
+      function sortByName(){
+        let rows = [...assetsFiltered]
+  
+        rows.sort((a, b) => {
+          const nameA = a.assetName.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.assetName.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+        
+          // names must be equal
+          return 0;
+        });
+  
+        dispatch(updateFilteredAssets(rows))
+  
+      }
+      
+      return ( 
+          <div className={styles.sortingContainer}>
+            <h4>Asset Name </h4> 
+            <div className={styles.sortArrow} onClick={sortByName}>
+              <Image width={25} src={sortImg} alt='filter by Asset Name'/>
+            </div>
+          </div>)
+
+    }
+
+    const BussinessSorter = ()=>{
+
+      function sortByBus(){
+        let rows = [...assetsFiltered]
+
+      rows.sort((a, b) => {
+        const nameA = a.businessCategory.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.businessCategory.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      
+        // names must be equal
+        return 0;
+      });
+
+      dispatch(updateFilteredAssets(rows))
+      }
+      
+      return ( 
+          <div className={styles.sortingContainer}>
+            <h4>Business Category </h4> 
+            <div className={styles.sortArrow} onClick={sortByBus}>
+              <Image width={25} src={sortImg} alt='sort by Business Category'/>
+            </div>
+          </div>)
+
+    }
+    const RiskRatingSorter = ()=>{
+
+      function sortByRiskRating(){
+        let rows = [...assetsFiltered]
+        rows.sort((a, b) => a.riskRating - b.riskRating);
+        dispatch(updateFilteredAssets(rows))
+      }
+      
+      return ( 
+          <div className={styles.sortingContainer}>
+            <h4>Risk Rating</h4> 
+            <div className={styles.sortArrow} onClick={sortByRiskRating}>
+              <Image width={25} src={sortImg} alt='sort by Business Category'/>
+            </div>
+          </div>)
+
+    }
+    const YearSorter = ()=>{
+
+      function sortByYear(){
+        let rows = [...assetsFiltered]
+        rows.sort((a, b) => a.year - b.year);
+        dispatch(updateFilteredAssets(rows))
+      }
+      
+      return ( 
+          <div className={styles.sortingContainer}>
+            <h4>Year</h4> 
+            <div className={styles.sortArrow} onClick={sortByYear}>
+              <Image width={25} src={sortImg} alt='sort by year'/>
+            </div>
+          </div>)
+
+    } 
+
     return(
       <section className={styles.tableSection} id='table'>
         <div className={styles.tableFilters}>
@@ -135,13 +243,13 @@ const Table = ({assets,maxRows}: tableProps) => {
           <table className={styles.tableFixHead}>
             <thead>
               <tr>
-                  <th>Asset Name</th>
+                  <th><AssetNameSorter/></th>
                   <th>Lat</th>
                   <th>Long</th>
-                  <th>Business Category</th>
-                  <th>Risk Rating</th>
+                  <th><BussinessSorter/> </th>
+                  <th><RiskRatingSorter/></th>
                   <th>Risk Factors</th>
-                  <th>Year</th>
+                  <th><YearSorter/></th>
               </tr>
             </thead>
             <tbody>
@@ -155,6 +263,8 @@ const Table = ({assets,maxRows}: tableProps) => {
                 riskFactorsArr.push(`${property} ${riskFactors[property]} `)
               }
             
+           
+
               return(
                 <tr key={index}>
                   <td>{asset.assetName}</td>

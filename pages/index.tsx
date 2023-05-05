@@ -60,6 +60,7 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
       <Graph />
       <section className={styles.aboutSection} id='about'>
         <h1>About</h1>
+        <h2>This Project</h2>
         <p>This is a work sample made for riskthinking.AI.</p>
         <p>
           It was pretty fun to develop this, and I learned a lot in the process. I decided to make this
@@ -67,6 +68,22 @@ const IndexPage = ({ data }: InferGetServerSidePropsType<typeof getServerSidePro
           appear on the map and in the graph are averages calculated based on the assets that were filtered.
         </p>
         <p>I really hope to have the chance to learn more about your company and the role, and to meet the team.</p>
+        <h2>References</h2>
+        <p>You can check the tutorials I used to create this website below:</p>
+        <h4>Using Mapbox with React and Next</h4>
+        <a href='https://dev.to/dqunbp/using-mapbox-gl-in-react-with-next-js-2glg
+'>https://dev.to/dqunbp/using-mapbox-gl-in-react-with-next-js-2glg
+</a>
+        <h4>Redux with Typescript</h4>
+        <a href='https://redux-toolkit.js.org/tutorials/typescript'>
+        https://redux-toolkit.js.org/tutorials/typescript
+        </a>
+        <h4>Next and Typescript</h4>
+        <a href='https://nextjs.org/docs/basic-features/typescript'>https://nextjs.org/docs/basic-features/typescript</a>
+        <h4>How to create Clusters in Mapbox</h4>
+        <a href='https://docs.mapbox.com/mapbox-gl-js/example/cluster/'>https://docs.mapbox.com/mapbox-gl-js/example/cluster/</a>
+        <h4>Add custom markers in Mapbox GL JS</h4>
+        <a href='https://docs.mapbox.com/help/tutorials/custom-markers-gl-js/'>https://docs.mapbox.com/help/tutorials/custom-markers-gl-js/</a>
       </section>
       
     </Layout>

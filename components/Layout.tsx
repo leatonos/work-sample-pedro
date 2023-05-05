@@ -30,7 +30,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     {children}
     <footer>
       <hr />
-      <span>I'm here to stay (Footer)</span>
+      <span>Website created by Pedro Fernando de Mattos Baptista</span>
     </footer>
   </div>
 )

@@ -23,7 +23,7 @@
 .mapFiltersContainer{
   display: flex;
   flex-direction: row;
-  align-items: end;
+  align-items: flex-end;
   margin-bottom: 10px;
 }
 
@@ -60,6 +60,7 @@
 }
 
 .tableContainer{
+  width: 1400px;
    height: 280px;
    overflow-y: auto;
 }
@@ -83,6 +84,18 @@
     width: 15px;
     height: 15px;
     transform: scaleX(-1);
+  }
+
+  .sortingContainer{
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly
+
+  }
+  .sortArrow{
+    display: inline;
+    cursor: pointer;
+    width: 30px;
   }
 
 
