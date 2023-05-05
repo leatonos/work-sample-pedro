@@ -122,3 +122,40 @@ td{
   
   box-shadow: 5px 6px 20px -1px rgba(0,0,0,0.25);
 }
+
+a{
+  word-wrap: break-word;
+}
+
+
+/* Responsive */
+
+@media only screen and (max-width: 600px) {
+
+  .page-title-container{
+    width: 100%;
+  }
+
+  h1{
+    text-align: center;
+  }
+  nav{
+    display: none;
+  }
+
+  header{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  table{
+    table-layout: auto;
+  }
+
+  
+
+  
+}

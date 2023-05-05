@@ -132,23 +132,28 @@ const Table = ({assets,maxRows}: tableProps) => {
 
     const AssetNameSorter = ()=>{
 
+      const [reversed,setReverse] = React.useState(false)
+
       function sortByName(){
         let rows = [...assetsFiltered]
   
-        rows.sort((a, b) => {
-          const nameA = a.assetName.toUpperCase(); // ignore upper and lowercase
-          const nameB = b.assetName.toUpperCase(); // ignore upper and lowercase
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
+       
+          console.log('it is true')
+          rows.sort((a, b) => {
+            const nameA = a.assetName.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.assetName.toUpperCase(); // ignore upper and lowercase
+            if (nameA > nameB) {
+              return 1;
+            }
+            if (nameA < nameB) {
+              return -1;
+            }
+          
+            // names must be equal
+            return 0;
+          });
         
-          // names must be equal
-          return 0;
-        });
-  
+       
         dispatch(updateFilteredAssets(rows))
   
       }
@@ -159,10 +164,10 @@ const Table = ({assets,maxRows}: tableProps) => {
             <div className={styles.sortArrow} onClick={sortByName}>
               <Image width={25} src={sortImg} alt='filter by Asset Name'/>
             </div>
-          </div>)
+          </div>
+          )
 
     }
-
     const BussinessSorter = ()=>{
 
       function sortByBus(){
@@ -231,6 +236,7 @@ const Table = ({assets,maxRows}: tableProps) => {
 
     return(
       <section className={styles.tableSection} id='table'>
+        <h2>Table Filters</h2>
         <div className={styles.tableFilters}>
           <AssetNameSelector/>
           <BusinessCategorySelector/>

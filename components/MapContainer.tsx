@@ -42,7 +42,7 @@ const MapContainer = () => {
             <DecadeSelector propId='mapDecadeSelector'/>
             <button onClick={clearSelection}>Clear Selection</button>
           </div>
-          <div className={styles.tableContainer}>
+          <div className={styles.tableContainerSmall}>
             <table className={styles.tableFixHead}>
               <thead>
                 <tr>
