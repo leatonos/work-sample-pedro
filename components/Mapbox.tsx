@@ -10,6 +10,8 @@ import { type } from "os";
 import type { RootState } from '../redux/store';
 import { useSelector, useDispatch } from 'react-redux'
 import { updateFilteredAssets } from "../redux/assetsSlice";
+import {setLongLatFilter} from "../redux/filtersSlice"
+
 
 type mapProps = {
   points: MarkerPoint[]
@@ -91,6 +93,7 @@ function MapboxMap({points}: mapProps) {
       
 
       el.addEventListener('click',()=>{
+        dispatch(setLongLatFilter({latitute:markerPoint.coords[1],longitute:markerPoint.coords[0]}))
         dispatch(updateFilteredAssets(markerPoint.assets))
         mapboxMap.easeTo({
           center:markerPoint.coords,

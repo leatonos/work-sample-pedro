@@ -59,9 +59,10 @@ const Graph = () => {
     //Redux Selectors
 
     //This is the data from the Redux Store
-    const assets:Asset[] = useSelector((state: RootState) => state.assets.assets)
+   
     const initialData = useSelector((state: RootState) => state.assets.initialAssets)
     const assetNameFilters = useSelector((state: RootState) => state.filters.assetNameFilter)
+    const locationFilter = useSelector((state: RootState) => state.filters.latLangFilter)
     const riskFactorFilters = useSelector((state: RootState) => state.filters.riskFactorFilter)
     const categoryFilter = useSelector((state: RootState) => state.filters.categoryFilter)
 
@@ -111,16 +112,28 @@ const Graph = () => {
     //Updates the graph according to the filters selected
     React.useEffect(()=>{
       
-      let filteredResult:Asset[] = [...assets]
+      let filteredResult:Asset[] = [...initialData]
 
       //Starts getting the filtered result when the user selects an asset
       if(assetNameFilters.length != 0){
         filteredResult = filteredResult.filter((asset)=>{return assetNameFilters.includes(asset.assetName)})
       }
 
+      
+      //Now we check if the user selected an specific location in this case we need to use this filter too
+      if(locationFilter.latitute && locationFilter.longitute){
+        filteredResult = filteredResult.filter((asset)=>{return (
+          asset.lat == locationFilter.latitute &&
+          asset.long == locationFilter.longitute
+          ) })
+        }
+        
+        
+        console.log(filteredResult.length)
+
       /*
         Here if the user selects one business category we make sure that only
-        the categories chosen by the user will appear in the graph
+        those categories will appear in the graph
       */
       let selectedCategories = []
       if(categoryFilter.length != 0){
@@ -128,6 +141,7 @@ const Graph = () => {
       }else{
         selectedCategories = businessCategories
       }
+
 
       //Creates an dataSet object for each business category
       const finalResult = selectedCategories.map((category,index)=>{
@@ -190,6 +204,8 @@ const Graph = () => {
             year:point.year,
             risks:averageOfEachRisk
           }
+
+
         })
 
         return {
@@ -202,11 +218,12 @@ const Graph = () => {
             xAxisKey: 'year' 
           }
         }
+
       })
 
       setDatasets(finalResult)
        
-    },[assetNameFilters,categoryFilter,assets])
+    },[assetNameFilters,categoryFilter,locationFilter])
 
     const options = {
       updateMode:"resize",

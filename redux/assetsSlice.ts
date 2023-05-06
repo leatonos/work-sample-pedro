@@ -59,7 +59,9 @@ export const assetsSlice = createSlice({
     }
       state.markers = markerPoints
     },
-    
+    setGraphData:(state,action: PayloadAction<Asset[]>)=>{
+       
+    }
   },
 })
 

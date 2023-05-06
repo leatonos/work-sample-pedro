@@ -47,6 +47,7 @@ const Table = ({assets,maxRows}: tableProps) => {
     const decadeFilters = useSelector((state: RootState) => state.filters.decadesFilter)
     const riskFactorFilters = useSelector((state: RootState) => state.filters.riskFactorFilter)
     const categoryFilter = useSelector((state: RootState) => state.filters.categoryFilter)
+    const locationFilter = useSelector((state: RootState) => state.filters.latLangFilter)
     const riskRatingNumber = useSelector((state: RootState) => state.filters.riskRatingNumber)
     const riskRatingComparator = useSelector((state: RootState) => state.filters.riskRatingComparator)
 
@@ -102,9 +103,19 @@ const Table = ({assets,maxRows}: tableProps) => {
         }
       }
 
+      dispatch(setMarkers(filteredResult))
+
+       //Now we check if the user selected an specific location in this case we need to use this filter too
+       if(locationFilter.latitute && locationFilter.longitute){
+        filteredResult = filteredResult.filter((asset)=>{return (
+          asset.lat == locationFilter.latitute &&
+          asset.long == locationFilter.longitute
+          ) })
+        }
+
       //Send the final filtered data to the redux store
       dispatch(updateFilteredAssets(filteredResult))
-      dispatch(setMarkers(filteredResult))
+      
 
       //After all the filters were applied we just need to go back to page 1 onf the table
       setTablePage(1)      
