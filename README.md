@@ -8,23 +8,23 @@ I really hope to have the chance to learn more about your company and the role, 
 ## REFERENCES
 You can check the tutorials I used to create this website below:
 
-### USING MAPBOX WITH REACT AND NEXT
+### Mapbox with react and next
 
 https://dev.to/dqunbp/using-mapbox-gl-in-react-with-next-js-2glg
 
-### REDUX WITH TYPESCRIPT
+### Redux with typescript
 
 https://redux-toolkit.js.org/tutorials/typescript
 
-### NEXT AND TYPESCRIPT
+### Next and typescript
 
 https://nextjs.org/docs/basic-features/typescript
 
-### HOW TO CREATE CLUSTERS IN MAPBOX
+### How to create clusters in mapbox
 
 https://docs.mapbox.com/mapbox-gl-js/example/cluster/
 
-### ADD CUSTOM MARKERS IN MAPBOX GL JS
+### Custom markers in mapbox GL JS
 
 https://docs.mapbox.com/help/tutorials/custom-markers-gl-js/
 
