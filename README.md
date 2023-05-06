@@ -1,47 +1,22 @@
-# TypeScript Next.js example
+##About This project
+This is a work sample made for riskthinking.AI.
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+It was pretty fun to develop this, and I learned a lot in the process. I decided to make this short text to thank you for the opportunity and explain that the risk values that appear on the map and in the graph are averages calculated based on the assets that were filtered.
 
-## Deploy your own
+I really hope to have the chance to learn more about your company and the role, and to meet the team.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript)
+#REFERENCES
+You can check the tutorials I used to create this website below:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
+#USING MAPBOX WITH REACT AND NEXT
+https://dev.to/dqunbp/using-mapbox-gl-in-react-with-next-js-2glg
+#REDUX WITH TYPESCRIPT
+https://redux-toolkit.js.org/tutorials/typescript
+#NEXT AND TYPESCRIPT
+https://nextjs.org/docs/basic-features/typescript
+#HOW TO CREATE CLUSTERS IN MAPBOX
+https://docs.mapbox.com/mapbox-gl-js/example/cluster/
+#ADD CUSTOM MARKERS IN MAPBOX GL JS
+https://docs.mapbox.com/help/tutorials/custom-markers-gl-js/
 
-## How to use it?
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript with-typescript-app
-```
-
-```bash
-yarn create next-app --example with-typescript with-typescript-app
-```
-
-```bash
-pnpm create next-app --example with-typescript with-typescript-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
-
-```
-npm install --save-dev typescript
-```
-
-To enable TypeScript's features, we install the type declarations for React and Node.
-
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
-
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
-
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
